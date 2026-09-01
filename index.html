@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gréta & David</title>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap');
+
+  :root {
+    --bg: #1a1a1a;
+    --gold: #d9c9a3;
+    --cream: #e9e2d0;
+    --line: #4a4530;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 40px 16px;
+    display: flex;
+    justify-content: center;
+    background: var(--bg);
+    color: var(--cream);
+    font-family: "Cormorant Garamond", serif;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 440px;
+    padding: 32px 24px 48px;
+    text-align: center;
+    border: 1px solid var(--line);
+  }
+
+  .flags {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
+    display: flex;
+    gap: 8px;
+  }
+
+  .flags button {
+    padding: 4px 8px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--gold);
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    opacity: 0.65;
+    transition: opacity 0.2s, border-color 0.2s;
+  }
+
+  .flags button:hover {
+    border-color: var(--gold);
+    opacity: 1;
+  }
+
+  .flags button.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    opacity: 1;
+  }
+
+  h1 {
+    margin: 8px 0 4px;
+    color: var(--cream);
+    font-size: 38px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  .subtitle {
+    margin: 4px 0 24px;
+    color: var(--gold);
+    font-family: "Great Vibes", cursive;
+    font-size: 26px;
+  }
+
+  .menu-images {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    margin: 0 auto 28px;
+  }
+
+  .menu-images img {
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+    border: 1px solid var(--line);
+    object-fit: contain;
+  }
+
+  hr {
+    width: 60%;
+    margin: 0 auto 28px;
+    border: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .link-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 16px 20px;
+    border: 1px solid var(--line);
+    color: var(--cream);
+    font-size: 17px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .link-btn:hover {
+    border-color: var(--gold);
+    background: rgba(217, 201, 163, 0.06);
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 1.4;
+  }
+
+  .address-section {
+    margin-top: 30px;
+    padding: 22px 16px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .address-label {
+    margin-bottom: 8px;
+    color: var(--gold);
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .address-text {
+    margin-bottom: 16px;
+    color: var(--cream);
+    font-size: 18px;
+    line-height: 1.4;
+    white-space: pre-line;
+  }
+
+  .copy-button {
+    padding: 10px 18px;
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    cursor: pointer;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .copy-button:hover {
+    background: var(--gold);
+    color: var(--bg);
+  }
+
+  .description {
+    max-width: 340px;
+    margin: 34px auto 0;
+    color: var(--cream);
+    font-size: 17px;
+    line-height: 1.5;
+    white-space: pre-line;
+  }
+
+  @media (max-width: 420px) {
+    body {
+      padding: 28px 12px;
+    }
+
+    .card {
+      padding: 32px 18px 38px;
+    }
+
+    h1 {
+      font-size: 34px;
+    }
+
+    .link-btn {
+      padding: 15px 14px;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="flags">
+  <button data-lang="hu" class="active" aria-label="Magyar">🇭🇺</button>
+  <button data-lang="en" aria-label="English">🇬🇧</button>
+  <button data-lang="es" aria-label="Españ·±±ol">🇪🇸</button>
+</div>
+
+<main class="card">
+  <h1 id="title"></h1>
+
+  <div class="subtitle" id="subtitle"></div>
+
+  <div class="menu-images" id="menu-images"></div>
+
+  <hr>
+
+  <div class="links" id="links"></div>
+
+  <section class="address-section" id="address-section">
+    <div class="address-label" id="address-label"></div>
+    <div class="address-text" id="address-text"></div>
+    <button class="copy-button" id="copy-button" type="button"></button>
+  </section>
+
+  <div class="description" id="description"></div>
+</main>
+
+<script>
+const data = {"id": "Gréta & David", "default_lang": "hu", "menu_images": ["im1.jpg", "im2.jpg"], "translations": {"hu": {"title": "Gréta & David", "subtitle": "A mi esküvőnk!", "description": " Nem kell ajándékozni. De kéne", "address": {"label": "Helyszín", "text": "Szarvas, Üdülő stny. 18, 5540", "copy_button": "Cím másolása", "copied_message": "Kimásolva!"}, "links": [{"label": "Oszd meg velünk a képeidet!", "icon": "camera", "url": "https://drive.google.com/drive/folders/1gJXd7m4a5drhk9AR4GeBDUUgQTx6t6NJ?usp=sharing"}, {"label": "Naptár", "icon": "calendar", "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"}, {"label": "Helyszín megnyitása a térképen", "icon": "location", "url": "https://maps.app.goo.gl/jKJDPq8NLPUWcQSb6"}]}, "en": {"title": "Gréta & David", "subtitle": "Our wedding!", "description": "We will later replace this generic test, dw", "address": {"label": "Venue address", "text": "Szarvas, Üdülő stny. 18, 5540", "copy_button": "Copy address", "copied_message": "Copied!"}, "links": [{"label": "Share your photos with us!", "icon": "camera", "url": "https://drive.google.com/drive/folders/1gJXd7m4a5drhk9AR4GeBDUUgQTx6t6NJ?usp=sharing"}, {"label": "Calendar", "icon": "calendar", "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"}, {"label": "Open location in maps", "icon": "location", "url": "https://maps.app.goo.gl/jKJDPq8NLPUWcQSb6"}]}, "es": {"title": "Gréta & David", "subtitle": "¡Nuestra boda!", "description": "Tu tranquilo, yo nervioso", "address": {"label": "Ubicación", "text": "Szarvas, Üdülő stny. 18, 5540", "copy_button": "Copiar dirección", "copied_message": "Copiado!"}, "links": [{"label": "Comparte tus fotos con nosotros!", "icon": "camera", "url": "https://drive.google.com/drive/folders/1gJXd7m4a5drhk9AR4GeBDUUgQTx6t6NJ?usp=sharing"}, {"label": "Calendario", "icon": "calendar", "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"}, {"label": "Abrir en Maps", "icon": "location", "url": "https://maps.app.goo.gl/jKJDPq8NLPUWcQSb6"}]}}};
+
+const icons = {
+  camera: `
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 8h3l2-3h6l2 3h3v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8z"/>
+      <circle cx="12" cy="13" r="3.5"/>
+    </svg>`,
+
+  calendar: `
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="16" rx="1"/>
+      <path d="M8 3v4M16 3v4M3 10h18"/>
+    </svg>`,
+
+  location: `
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/>
+      <circle cx="12" cy="9" r="2.3"/>
+    </svg>`
+};
+
+let currentLanguage = data.default_lang;
+
+function render(language) {
+  currentLanguage = language;
+
+  const page = data.translations[language];
+
+  document.documentElement.lang = language;
+  document.title = page.title;
+
+  document.getElementById("title").textContent = page.title;
+  document.getElementById("subtitle").textContent = page.subtitle;
+  document.getElementById("description").textContent = page.description || "";
+
+  const container = document.getElementById("menu-images");
+  container.innerHTML = "";
+
+  if (Array.isArray(data.menu_images) && data.menu_images.length) {
+    data.menu_images.forEach((src) => {
+      const img = document.createElement("img");
+      img.className = "menu-image";
+      img.src = src;
+      img.alt = "";
+      container.appendChild(img);
+    });
+    container.style.display = "flex";
+  } else {
+    container.style.display = "none";
+  }
+
+  const addressSection = document.getElementById("address-section");
+
+  if (page.address && page.address.text) {
+    addressSection.style.display = "block";
+
+    document.getElementById("address-label").textContent = page.address.label || "";
+    document.getElementById("address-text").textContent = page.address.text;
+    document.getElementById("copy-button").textContent =
+      page.address.copy_button || "Copy";
+  } else {
+    addressSection.style.display = "none";
+  }
+
+  const linksElement = document.getElementById("links");
+  linksElement.innerHTML = "";
+
+  page.links.forEach((link) => {
+    const button = document.createElement("a");
+
+    button.className = "link-btn";
+    button.href = link.url;
+    button.target = "_blank";
+    button.rel = "noopener noreferrer";
+
+    const icon = icons[link.icon] || "";
+    button.innerHTML = icon + `<span>${link.label}</span>`;
+
+    linksElement.appendChild(button);
+  });
+
+  document.querySelectorAll(".flags button").forEach((button) => {
+    button.classList.toggle("active", button.dataset.lang === language);
+  });
+}
+
+document.getElementById("copy-button").addEventListener("click", async () => {
+  const page = data.translations[currentLanguage];
+
+  if (!page.address || !page.address.text) {
+    return;
+  }
+
+  const copyButton = document.getElementById("copy-button");
+  const normalText = page.address.copy_button || "Copy";
+  const copiedText = page.address.copied_message || "Copied!";
+
+  try {
+    await navigator.clipboard.writeText(page.address.text);
+
+    copyButton.textContent = copiedText;
+
+    setTimeout(() => {
+      copyButton.textContent = normalText;
+    }, 2000);
+  } catch (error) {
+    copyButton.textContent = normalText;
+  }
+});
+
+document.querySelectorAll(".flags button").forEach((button) => {
+  button.addEventListener("click", () => {
+    render(button.dataset.lang);
+  });
+});
+
+render(data.default_lang);
+</script>
+
+</body>
+</html>
